@@ -5,7 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CoaScore — read & score any Certificate of Analysis</title>
 <meta name="description" content="CoaScore turns any vendor's Certificate of Analysis into a plain-English read and a vendor-neutral documentation score. For research use only." />
-<link rel="icon" href="/favicon.svg" />
+<link rel="canonical" href="https://coascore.com/tool/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="CoaScore" />
+<meta property="og:title" content="CoaScore — read &amp; score any Certificate of Analysis" />
+<meta property="og:description" content="CoaScore turns any vendor's Certificate of Analysis into a plain-English read and a vendor-neutral documentation score. For research use only." />
+<meta property="og:url" content="https://coascore.com/tool/" />
+<meta property="og:image" content="https://coascore.com/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CoaScore — read &amp; score any Certificate of Analysis" />
+<meta name="twitter:description" content="CoaScore turns any vendor's Certificate of Analysis into a plain-English read and a vendor-neutral documentation score. For research use only." />
+<meta name="twitter:image" content="https://coascore.com/og.png" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"CoaScore COA Interpreter","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://coascore.com/tool/","description":"CoaScore turns any vendor's Certificate of Analysis into a plain-English read and a vendor-neutral documentation score. For research use only.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://coascore.com/"},{"@type":"ListItem","position":2,"name":"CoaScore — read & score any Certificate of Analysis","item":"https://coascore.com/tool/"}]}
+</script>
+<link rel="icon" href="brand/favicon.svg" />
 <style>
   :root{
     --bg:#f6f8fa; --surface:#ffffff; --surface-2:#eef2f6; --line:#e2e8f0;
@@ -90,21 +109,21 @@
       <g fill="none" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 29.7A15 15 0 1 1 32.1 29.7"/><path d="m27.5 7.5 2.7 2.8 5-5.3"/><path d="m20 20 8-5"/><circle cx="20" cy="20" r="1.8" fill="#0d9488" stroke="none"/></g>
       <text x="45" y="28" fill="#0f172a" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="25" font-weight="800" letter-spacing="-.6">Coa<tspan fill="#0d9488">Score</tspan></text>
     </svg>
-    <p class="tagline">Read &amp; score any vendor's Certificate of Analysis</p>
-    <p class="muted">Runs entirely in your browser — your document is never uploaded to a server.</p>
+    <p class="tagline">See what the COA proves. Spot what it leaves out.</p>
+    <p class="muted">Your document stays in this browser. CoaScore does not upload it.</p>
     <span class="rou">For research use only · not medical advice</span>
   </header>
 
   <!-- STEP 1: input -->
   <div class="card" id="inputCard">
-    <h2>1 · Add the COA</h2>
+    <h2>1 · Start with the actual report</h2>
     <div class="drop" id="drop" role="button" tabindex="0" aria-label="Choose a COA image or PDF to read">
-      <p style="margin:0 0 6px"><b>Click to upload</b> or drop a COA image / PDF page here</p>
-      <p class="muted" style="margin:0">We read the text with in-browser OCR and pre-fill the fields below. You confirm before scoring.</p>
+      <p style="margin:0 0 6px"><b>Drop a COA image or PDF</b> — we'll read what we can and you fill the rest</p>
+      <p class="muted" style="margin:0">OCR makes mistakes, especially on scans and chromatograms. Check every field before scoring.</p>
       <input type="file" id="file" accept="image/*,.pdf" class="hide" aria-label="COA image or PDF file" />
     </div>
     <div class="ocrbar hide" id="ocrbar" role="status" aria-live="polite"></div>
-    <div class="row"><button class="btn ghost" id="manualBtn" type="button">…or enter the values manually</button></div>
+    <div class="row"><button class="btn ghost" id="manualBtn" type="button">I’ll enter the report myself</button></div>
 
     <div id="fields" class="hide" style="margin-top:18px">
       <div class="grid" id="fieldGrid">
@@ -121,40 +140,40 @@
         <div><label>Label strength (mg)</label><input id="f_labelmg" type="number" step="0.1" placeholder="e.g. 10 (optional)" /></div>
         <div style="display:flex;align-items:end"><label style="display:flex;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="f_chroma" style="width:auto" /> chromatogram shown?</label></div>
       </div>
-      <div class="row"><button class="btn" id="analyze" type="button">Interpret this COA →</button></div>
+      <div class="row"><button class="btn" id="analyze" type="button">Score what’s documented →</button></div>
     </div>
   </div>
 
   <!-- STEP 2: results -->
   <div class="card hide" id="results">
-    <h2>2 · What this COA tells you</h2>
+    <h2>2 · What the paperwork supports</h2>
     <div class="score">
       <div class="ring" id="ring"><span id="ringScore">–<small>/5</small></span></div>
       <div><div class="verdict" id="verdict"></div><p class="muted" id="verdictSub"></p></div>
     </div>
     <div id="checks" style="margin-top:8px"></div>
     <div id="asksWrap" class="hide" style="margin-top:16px">
-      <b>Questions worth asking this vendor</b>
+      <b>Ask the vendor for these missing pieces</b>
       <ul class="asks" id="asks"></ul>
     </div>
   </div>
 
   <!-- education -->
   <div class="card">
-    <h2>How to read a COA</h2>
-    <details open><summary>What a good peptide COA contains</summary>
-      <p class="muted">A trustworthy COA names an <b>independent lab</b> and report number, is dated and tied to the <b>lot</b> you received, reports <b>HPLC purity with the chromatogram</b> behind it, and confirms <b>identity by mass spectrometry</b> (the measured mass should match the compound's known mass). Better ones also give <b>net peptide content</b> (how much is actually peptide vs salt and water).</p>
+    <h2>Four terms that should not be blurred together</h2>
+    <details open><summary>The short version</summary>
+      <p class="muted">Look for a named <b>independent lab</b>, a report number, a date, and the exact <b>lot</b> on the vial. HPLC purity needs its chromatogram. MS identity needs an observed mass that agrees with the expected molecule; semaglutide, for example, is about 4,113 Da. Net peptide content answers a different question: how much of the vial mass is peptide rather than salt and water. COAs we've looked at often skip that line.</p>
     </details>
     <details class="gloss"><summary>Glossary</summary>
       <dl>
-        <dt>HPLC purity</dt><dd>The share of the sample that is the target peptide, measured by chromatography. 99%+ is excellent; a bare percentage with no chromatogram is weak evidence.</dd>
-        <dt>Mass spec (MS) identity</dt><dd>Confirms the molecule IS what the label says by measuring its mass. The found mass should match the compound's known mass within ~1 unit.</dd>
-        <dt>Net peptide content</dt><dd>After you subtract the salt (acetate/TFA) and water, how much is actual peptide. A 10 mg vial at 80% net = 8 mg of peptide.</dd>
-        <dt>Salt form (TFA vs acetate)</dt><dd>Peptides ship as a salt; it changes the real peptide mass. Acetate is generally preferred over TFA.</dd>
+        <dt>HPLC area purity</dt><dd>The target peak's area as a percentage of all integrated peak area under that method. It is relative detector response, not mass-% of the vial. A bare 99% without a chromatogram is weak evidence; an unexplained 100.0% deserves extra scrutiny.</dd>
+        <dt>Mass spec (MS) identity</dt><dd>Compares an observed molecular mass with the compound's expected mass. A close match supports identity, but does not establish purity or vial quantity.</dd>
+        <dt>Net peptide content</dt><dd>The portion of vial mass attributed to peptide after components such as salt and water are accounted for. At 80% net, a 10 mg labeled amount corresponds to 8 mg of peptide.</dd>
+        <dt>Salt form</dt><dd>Peptides may be supplied as salts such as acetate or TFA. The counterion contributes mass, which is one reason area-% and net peptide content are different measurements.</dd>
       </dl>
     </details>
     <details><summary>How to independently verify a COA</summary>
-      <p class="muted">Note the issuing lab and report number, then contact that lab (or use its public verification portal) and confirm the report is genuine and matches what you were shown. A COA the vendor hosts on its own site only tells you what the vendor wants you to see — third-party confirmation is what counts.</p>
+      <p class="muted">Take the issuer and report number from the document, find the lab's official site yourself, and use its verification process where available. Janoshik reports, for example, may include a verification path. A vendor-hosted image is still only a vendor-hosted image.</p>
     </details>
   </div>
 
@@ -1013,7 +1032,7 @@ async function handleFile(f){
   $("fields").classList.add("loading-fields");
   $("ocrbar").classList.remove("hide");
   $("ocrbar").className="ocrbar loading";
-  $("ocrbar").innerHTML='<span class="spinner" aria-hidden="true"></span><span>Reading the COA…</span>';
+  $("ocrbar").innerHTML='<span class="spinner" aria-hidden="true"></span><span>Reading page one. Scans can take a moment…</span>';
   $("analyze").disabled=true;
   try{
     if(!window.Tesseract){ await loadScript("https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"); }
@@ -1021,10 +1040,10 @@ async function handleFile(f){
     const {data}=await Tesseract.recognize(img,"eng");
     parseText(data.text||"");
     $("ocrbar").className="ocrbar";
-    $("ocrbar").textContent="Text read — we pre-filled what we found. Check every field, fix anything wrong, then interpret.";
+    $("ocrbar").textContent="We filled the text we could read. Compare it with the report; OCR is not evidence.";
   }catch(err){
     $("ocrbar").className="ocrbar error";
-    $("ocrbar").textContent="Couldn't auto-read this file — enter the fields manually.";
+    $("ocrbar").textContent="We couldn't read this file cleanly. The manual fields are ready below.";
   }finally{
     $("fields").classList.remove("loading-fields");
     $("analyze").disabled=false;
@@ -1102,7 +1121,7 @@ function analyze(){
   if(c&&exp&&mass!=null&&mass>=0){
     const target=exp.mono&&Math.abs(mass-exp.mono)<Math.abs(mass-exp.avg)?exp.mono:exp.avg;
     const diff=Math.abs(mass-target);
-    if(diff<=1.2) add(2,"good","Identity confirmed by mass",`Reported mass ${mass} Da matches ${c.name}'s expected ${target.toFixed(1)} Da (${exp.source}). This is the right molecule.`);
+    if(diff<=1.2) add(2,"good","Mass supports identity",`Reported mass ${mass} Da matches ${c.name}'s expected ${target.toFixed(1)} Da (${exp.source}).`);
     else if(diff<=3) add(2,"warn","Mass is close but not exact",`Reported ${mass} Da vs expected ${target.toFixed(1)} Da (off by ${diff.toFixed(1)}). Could be salt/rounding — worth confirming the exact form.`);
     else add(2,"ask","Mass doesn't match",`Reported ${mass} Da vs expected ~${target.toFixed(0)} Da for ${c.name}. Ask the vendor which form/modification this is before relying on it.`);
   } else if(hasMass&&(mass==null||mass<0)){ add(2,"ask","Mass value is invalid","Mass must be a finite, non-negative value in Da.");
@@ -1113,8 +1132,8 @@ function analyze(){
   // purity
   if(purity!=null&&purity>0&&purity<=100){
     let tag= purity>=99?"good":purity>=98?"good":purity>=95?"warn":"ask";
-    const grade= purity>=99?"excellent":purity>=98?"good":purity>=95?"borderline":"below what most researchers accept";
-    add(1.5,tag==="good"?"good":tag,`HPLC purity ${purity}% — ${grade}`, purity>=98?"Solid purity for a research peptide.":"Consider whether this meets your requirements; ask for the chromatogram.");
+    const grade= purity>=99?"high area result":purity>=98?"strong area result":purity>=95?"review the trace":"low area result";
+    add(1.5,tag==="good"?"good":tag,`HPLC purity ${purity}% — ${grade}`, purity>=98?"Remember: area-% is not mass-%.":"Check whether this meets your requirements and ask for the chromatogram.");
     if(purity>99.9) checks[checks.length-1].text+=" (A figure this high with no chromatogram is worth double-checking.)";
   } else if($("f_purity").value.trim()!=="") add(1.5,"ask","Purity value is out of range","HPLC purity must be a finite value greater than 0 and no more than 100%.");
   else add(1.5,"ask","No purity figure entered","Enter the HPLC purity % from the COA.");
@@ -1122,7 +1141,7 @@ function analyze(){
   if(purity!=null&&purity>0&&purity<=100){ if(chroma) add(0.5,"good","Chromatogram shown","Purity is backed by the actual HPLC trace, not just a number."); else add(0.5,"warn","No chromatogram noted","A purity % with no chromatogram behind it is weaker evidence — ask for the trace."); }
 
   // documentation / provenance (gentle)
-  if(lab){ const known=KNOWN_LABS.some(k=>lab.toLowerCase().includes(k)); if(known) add(0.75,"good","Named, recognized lab",`Testing attributed to ${lab}, an independent lab researchers know.`); else add(0.75,"warn","Lab named but unfamiliar",`Attributed to "${lab}". Fine — just confirm it's a genuine third-party lab and, ideally, verify the report with them.`); }
+  if(lab){ const known=KNOWN_LABS.some(k=>lab.toLowerCase().includes(k)); if(known) add(0.75,"good","Named, recognized lab",`The report attributes testing to ${lab}. Verify the report number with the lab where possible.`); else add(0.75,"warn","Lab named but unfamiliar",`The report names "${lab}." Confirm that it is a third-party lab and verify the report directly.`); }
   else add(0.75,"ask","No testing lab named","A COA should name the independent lab that ran it. Ask which lab issued this.");
   if(report) add(0.5,"good","Report/reference number present","There's a report number you can quote back to the lab to verify.");
   else add(0.5,"ask","No report number","Ask for the lab's report/reference number so the COA can be independently verified.");
@@ -1151,10 +1170,10 @@ function renderResults(score, checks){
   $("ring").style.setProperty("--v", (score/5*100));
   $("ringScore").innerHTML=`${s}<small>/5</small>`;
   $("ring").setAttribute("aria-label",`Documentation score ${s} out of 5`);
-  const v = score>=4.3?["Strong documentation","This COA covers the important bases. Verify the report with the issuing lab and you're on solid ground."]
-        : score>=3?["Reasonable, with gaps","The core is here but some things are missing or unconfirmed — see the questions below."]
-        : score>=1.5?["Thin documentation","Several key items are missing. Get the gaps filled before you rely on this."]
-        : ["Not enough to judge","Too little verified information here. Ask for a complete, lab-issued COA."];
+  const v = score>=4.3?["Well-documented","Most of the expected evidence is here. Now verify the report with the issuing lab."]
+        : score>=3?["Useful, but incomplete","There is enough to review, with specific gaps listed below."]
+        : score>=1.5?["Too many blank spots","Several pieces of evidence are missing. Ask for them before relying on the report."]
+        : ["This isn't enough paperwork","Ask for a complete, lab-issued COA tied to the correct lot."];
   $("verdict").textContent=v[0]; $("verdictSub").textContent=v[1];
   $("checks").innerHTML=checks.map(c=>`<div class="check"><span class="tag t-${c.tag}">${({good:"PASS",warn:"CHECK",ask:"ASK",bad:"FLAG"})[c.tag]}</span><div><b>${escapeHtml(c.title)}</b><p>${escapeHtml(c.text)}</p></div></div>`).join('');
   const asks=checks.filter(c=>c.tag!=="good");
