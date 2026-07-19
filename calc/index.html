@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reconstitution Calculator | CoaScore</title>
+  <style>
+    :root {
+      --bg: #f6f8fa; --surface: #ffffff; --surface-2: #eef2f6; --ink: #0f172a;
+      --ink-soft: #475569; --ink-faint: #94a3b8; --line: #e2e8f0; --accent: #0d9488;
+      --accent-strong: #0f766e; --accent-wash: #f0fdfa; --accent-ink: #ffffff;
+      --good: #059669; --warn: #d97706; --bad: #dc2626; --ask: #2563eb;
+      --radius: 14px; --radius-sm: 9px;
+      --shadow: 0 1px 3px rgba(15,23,42,.08),0 1px 2px rgba(15,23,42,.04);
+      --shadow-lg: 0 10px 30px rgba(15,23,42,.10);
+      --font: 16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --maxw: 900px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--bg); font: var(--font); }
+    .wrap { width: min(calc(100% - 2rem), var(--maxw)); margin: auto; }
+    header { border-bottom: 1px solid var(--line); background: var(--surface); }
+    header .wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .wordmark { display: block; width: 181px; height: 32px; }
+    .ruo { display: inline-flex; align-items: center; padding: .25rem .65rem; border: 1px solid rgba(13,148,136,.28); border-radius: 999px; color: var(--accent-strong); background: var(--accent-wash); font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+    main { padding: 2.5rem 0; }
+    h1 { margin: 0 0 .35rem; font-size: clamp(1.75rem,5vw,2.5rem); line-height: 1.15; letter-spacing: -.03em; }
+    h2 { margin: 0 0 1rem; font-size: 1.2rem; line-height: 1.15; letter-spacing: -.02em; }
+    .lede, .muted { color: var(--ink-soft); }
+    .lede { margin: 0 0 1.5rem; }
+    .card { margin-top: 1rem; padding: clamp(1rem,4vw,1.5rem); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .fields, .results { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+    label { display: block; color: var(--ink-soft); font-size: .875rem; font-weight: 700; }
+    input, select { display: block; width: 100%; min-height: 44px; margin-top: .35rem; padding: .7rem .75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); color: var(--ink); background: var(--surface); font: inherit; transition: border-color .15s,box-shadow .15s; }
+    input:hover:not(:disabled), select:hover:not(:disabled) { border-color: #94a3b8; }
+    input:focus, select:focus { outline: 3px solid rgba(13,148,136,.18); outline-offset: 1px; border-color: var(--accent); }
+    input:disabled, select:disabled { opacity: .55; cursor: not-allowed; background: var(--surface-2); }
+    input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--bad); box-shadow: 0 0 0 2px rgba(220,38,38,.12); }
+    .error { min-height: 1.5rem; margin: .75rem 0 0; color: var(--bad); font-weight: 650; }
+    .results { margin-top: 1rem; }
+    .result { min-width: 0; padding: 1rem; border-radius: var(--radius-sm); background: var(--surface-2); }
+    .result span { display: block; color: var(--ink-soft); font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .035em; }
+    .result strong { display: block; margin-top: .2rem; color: var(--accent-strong); font-size: clamp(1.15rem,4vw,1.55rem); overflow-wrap: anywhere; }
+    .instruction { margin: 1rem 0 0; padding: .8rem 1rem; border-left: 4px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: var(--accent-wash); font-weight: 700; overflow-wrap: anywhere; }
+    .pk-status { margin: .25rem 0 1rem; padding: .7rem .8rem; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--ink-soft); }
+    .note { margin: 1rem 0 0; color: var(--ink-soft); font-size: .875rem; }
+    [hidden] { display: none !important; }
+    footer { padding: 1.5rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; }
+    footer p { margin: .4rem 0; }
+    :focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px !important; }
+    @media (max-width: 600px) { .fields, .results { grid-template-columns: 1fr; } header .wrap { min-height: 68px; flex-wrap: wrap; padding-block: .75rem; } .wordmark { width: 158px; } main { padding: 2rem 0; } }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <svg class="wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 226 40" role="img" aria-labelledby="logo-title logo-desc">
+      <title id="logo-title">CoaScore</title><desc id="logo-desc">A gauge with a check mark followed by the CoaScore wordmark</desc>
+      <g fill="none" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 29.7A15 15 0 1 1 32.1 29.7"/><path d="m27.5 7.5 2.7 2.8 5-5.3"/><path d="m20 20 8-5"/><circle cx="20" cy="20" r="1.8" fill="#0d9488" stroke="none"/></g>
+      <text x="45" y="28" fill="#0f172a" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="25" font-weight="800" letter-spacing="-.6">Coa<tspan fill="#0d9488">Score</tspan></text>
+    </svg>
+    <span class="ruo">Research use only</span>
+  </div></header>
+
+  <main class="wrap">
+    <h1>Reconstitution calculator</h1>
+    <p class="lede">Check laboratory reconstitution arithmetic from the numbers on your bench. This calculator is for research context only, not medical advice or a dosing recommendation.</p>
+
+    <section class="card" aria-labelledby="calc-title">
+      <h2 id="calc-title">Vial concentration and volume</h2>
+      <div class="fields">
+        <label>Amount listed on vial (mg)<input id="mass" type="number" min="0" step="any" value="10" inputmode="decimal"></label>
+        <label>Liquid added (mL)<input id="volume" type="number" min="0" step="any" value="2" inputmode="decimal"></label>
+        <label>Research amount to calculate (mcg)<input id="dose" type="number" min="0" step="any" value="250" inputmode="decimal"></label>
+        <label>Measurement scale<select id="syringe"><option value="100">U-100 scale</option><option value="40">U-40 scale</option><option value="ml">Plain mL</option></select></label>
+      </div>
+      <p id="calc-error" class="error" role="alert"></p>
+      <div id="results" class="results" aria-live="polite">
+        <div class="result"><span>Concentration</span><strong id="concentration">—</strong></div>
+        <div class="result"><span>Volume for research amount</span><strong id="dose-volume">—</strong></div>
+        <div class="result"><span id="units-label">U-100 insulin units</span><strong id="units">—</strong></div>
+        <div class="result"><span>Calculated portions per vial</span><strong id="doses-vial">—</strong></div>
+      </div>
+      <p id="instruction" class="instruction" aria-live="polite"></p>
+    </section>
+
+    <section class="card" aria-labelledby="pk-title">
+      <h2 id="pk-title">Half-life reference estimate</h2>
+      <p class="muted">A simple pharmacokinetic model for research context. It is an estimate, not a dosing recommendation.</p>
+      <div class="fields">
+        <label>Compound<select id="compound"><option value="">— Select compound —</option></select></label>
+        <label>Model interval τ (hours)<input id="interval" type="number" min="0" step="any" value="24" inputmode="decimal" disabled></label>
+      </div>
+      <p id="pk-status" class="pk-status">Select a compound to check for half-life data.</p>
+      <p id="pk-error" class="error" role="alert"></p>
+      <div id="pk-results" class="results" hidden>
+        <div class="result"><span>Half-life</span><strong id="half-life">—</strong></div>
+        <div class="result"><span>Accumulation factor R</span><strong id="factor">—</strong></div>
+        <div class="result"><span>~5 half-lives</span><strong id="steady">—</strong></div>
+      </div>
+      <p class="note">The model assumes a fixed interval, one compartment, and first-order elimination. Real pharmacokinetic behavior may differ.</p>
+    </section>
+  </main>
+
+  <footer><div class="wrap">
+    <p>CoaScore turns any vendor's Certificate of Analysis into a plain-English read and a vendor-neutral documentation score; every COA is scored using the same process. CoaScore is built by the team behind Oak Ridge Peptides, but is not paid to score any result a particular way. For research use only — not medical advice.</p>
+    <p>No document is uploaded. All calculations happen locally in your browser; this page sends no calculator inputs to a server.</p>
+  </div></footer>
+
+  <script>
+    const FALLBACK_DB = [
+      {slug:"semaglutide",name:"Semaglutide",halfLifeHours:168},
+      {slug:"tirzepatide",name:"Tirzepatide",halfLifeHours:120},
+      {slug:"liraglutide",name:"Liraglutide",halfLifeHours:13},
+      {slug:"oxytocin",name:"Oxytocin",halfLifeHours:null}
+    ];
+    const $ = id => document.getElementById(id);
+    const finitePositive = value => Number.isFinite(value) && value > 0;
+    const numberFrom = id => Number($(id).value);
+    const fmt = (value, digits = 6) => value.toLocaleString(undefined, {maximumFractionDigits: digits});
+    const halfLifeOf = item => {
+      const raw = item.halfLifeHours ?? item.half_life_hours ?? item.halfLife?.hours ?? item.halfLife;
+      const value = Number(raw);
+      return finitePositive(value) ? value : null;
+    };
+    const hasHalfLifeField = item => Object.prototype.hasOwnProperty.call(item, "halfLifeHours") || Object.prototype.hasOwnProperty.call(item, "half_life_hours") || Object.prototype.hasOwnProperty.call(item, "halfLife");
+
+    function calculate() {
+      const mass = numberFrom("mass"), volume = numberFrom("volume"), dose = numberFrom("dose");
+      const error = $("calc-error");
+      ["mass","volume","dose"].forEach(id => { const invalid = !finitePositive(numberFrom(id)); $(id).setAttribute("aria-invalid", String(invalid)); $(id).setAttribute("aria-describedby", "calc-error"); });
+      if (![mass, volume, dose].every(finitePositive)) {
+        error.textContent = "All three values need a number greater than zero.";
+        $("results").hidden = true; $("instruction").hidden = true; return;
+      }
+      const concentration = mass / volume;
+      const mcgPerMl = concentration * 1000;
+      const doseMl = dose / mcgPerMl;
+      const doses = (mass * 1000) / dose;
+      if (![concentration, mcgPerMl, doseMl, doses].every(Number.isFinite)) {
+        error.textContent = "That combination is outside the numeric range this calculator can handle.";
+        $("results").hidden = true; $("instruction").hidden = true; return;
+      }
+      error.textContent = ""; $("results").hidden = false; $("instruction").hidden = false;
+      $("concentration").textContent = `${fmt(concentration)} mg/mL (${fmt(mcgPerMl)} mcg/mL)`;
+      $("dose-volume").textContent = `${fmt(doseMl)} mL`;
+      $("doses-vial").textContent = `${fmt(doses)} doses`;
+      const syringe = $("syringe").value;
+      if (syringe === "ml") {
+        $("units-label").textContent = "Syringe measurement"; $("units").textContent = "Plain mL";
+        $("instruction").textContent = `Draw ${fmt(doseMl)} mL using a plain mL syringe.`;
+      } else {
+        const units = doseMl * Number(syringe);
+        if (!Number.isFinite(units)) {
+          error.textContent = "These values are outside the calculator's supported numeric range.";
+          $("results").hidden = true; $("instruction").hidden = true; return;
+        }
+        $("units-label").textContent = `U-${syringe} insulin units`; $("units").textContent = `${fmt(units)} units`;
+        $("instruction").textContent = `Draw to the ${fmt(units)}-unit mark on a U-${syringe} insulin syringe.`;
+      }
+    }
+
+    let compounds = FALLBACK_DB;
+    function fillCompounds() {
+      const select = $("compound"), selected = select.value;
+      compounds = compounds.slice().sort((a,b) => a.name.localeCompare(b.name));
+      select.innerHTML = '<option value="">— Select compound —</option>' + compounds.map((item, i) => `<option value="${i}">${item.name}</option>`).join("");
+      if (selected && compounds[Number(selected)]) select.value = selected;
+      updatePk();
+    }
+    function updatePk() {
+      const index = $("compound").value, intervalInput = $("interval"), status = $("pk-status");
+      $("pk-error").textContent = ""; $("pk-results").hidden = true;
+      if (index === "") { intervalInput.disabled = true; status.textContent = "Choose a compound to see whether the database has a half-life value."; return; }
+      const item = compounds[Number(index)], halfLife = item ? halfLifeOf(item) : null;
+      if (!halfLife) { intervalInput.disabled = true; status.textContent = "The database has no half-life value for this compound."; return; }
+      intervalInput.disabled = false; status.textContent = `Using the database half-life value for ${item.name}.`;
+      const interval = numberFrom("interval");
+      $("interval").setAttribute("aria-describedby", "pk-error");
+      $("interval").setAttribute("aria-invalid", String(!finitePositive(interval)));
+      if (!finitePositive(interval)) { $("pk-error").textContent = "Enter an interval greater than zero hours."; return; }
+      const denominator = 1 - Math.exp(-Math.LN2 * interval / halfLife);
+      const factor = denominator > 0 ? 1 / denominator : null;
+      const steadyHours = halfLife * 5;
+      if (!finitePositive(factor) || !Number.isFinite(steadyHours)) { $("pk-error").textContent = "These values are outside the calculator's supported numeric range."; return; }
+      $("half-life").textContent = `${fmt(halfLife)} hours`;
+      $("factor").textContent = `${fmt(factor, 3)}×`;
+      $("steady").textContent = `${fmt(steadyHours)} hours (${fmt(steadyHours / 24, 2)} days)`;
+      $("pk-results").hidden = false;
+    }
+
+    ["mass","volume","dose","syringe"].forEach(id => $(id).addEventListener("input", calculate));
+    $("compound").addEventListener("change", updatePk); $("interval").addEventListener("input", updatePk);
+    calculate(); fillCompounds();
+    fetch("../peptide-db.json").then(response => response.ok ? response.json() : Promise.reject()).then(data => {
+      if (Array.isArray(data) && data.length) {
+        const fallbackBySlug = new Map(FALLBACK_DB.map(item => [item.slug, item.halfLifeHours]));
+        compounds = data.map(item => ({...item, halfLifeHours: hasHalfLifeField(item) ? halfLifeOf(item) : fallbackBySlug.get(item.slug) ?? null}));
+        fillCompounds();
+      }
+    }).catch(() => {});
+  </script>
+</body>
+</html>
