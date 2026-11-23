@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CoaScore — read & score any Certificate of Analysis</title>
+<title>Peptide COA Interpreter: Read and Score a COA | CoaScore</title>
 <meta name="description" content="CoaScore turns any vendor's Certificate of Analysis into a plain-English read and a vendor-neutral documentation score. For research use only." />
 <link rel="canonical" href="https://coascore.com/tool/" />
 <meta property="og:type" content="website" />
@@ -38,8 +38,8 @@
   .wrap{max-width:900px;margin:0 auto;padding:32px 18px 64px;overflow-wrap:anywhere}
   .wordmark{display:block;width:226px;height:40px;margin-bottom:8px}
   header p{color:var(--ink-soft);margin:0 0 4px}
-  .tagline{font-size:1.1rem;font-weight:700;color:var(--ink)}
-  .rou{display:inline-block;margin-top:10px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);background:var(--accent-wash);border:1px solid rgba(13,148,136,.28);border-radius:99px;padding:4px 12px}
+  .tagline{font-size:1.1rem;font-weight:700;color:var(--ink);margin:8px 0;line-height:1.35}
+  .rou{display:inline-block;margin-top:10px;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);background:var(--accent-wash);border:1px solid rgba(13,148,136,.28);border-radius:99px;padding:4px 12px}
   .card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius);padding:20px;margin:18px 0}
   h2{font-size:1.15rem;line-height:1.15;letter-spacing:-.02em;margin:0 0 14px}
   .drop{border:2px dashed #94a3b8;border-radius:var(--radius);padding:30px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,transform .1s;background:var(--surface-2);min-height:132px;display:grid;place-content:center}
@@ -74,7 +74,7 @@
   /* checks */
   .check{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
   .check:first-child{border-top:none}
-  .tag{flex:0 0 auto;font-size:.7rem;font-weight:800;letter-spacing:.04em;padding:4px 9px;border-radius:99px;height:fit-content}
+  .tag{flex:0 0 auto;font-size:.76rem;font-weight:800;letter-spacing:.04em;padding:4px 9px;border-radius:99px;height:fit-content}
   .t-good{background:#ecfdf5;color:#047857;border:1px solid var(--good)}
   .t-warn{background:#fffbeb;color:#92400e;border:1px solid var(--warn)}
   .t-bad{background:#fef2f2;color:var(--bad);border:1px solid var(--bad)}
@@ -110,7 +110,7 @@
       <g fill="none" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 29.7A15 15 0 1 1 32.1 29.7"/><path d="m27.5 7.5 2.7 2.8 5-5.3"/><path d="m20 20 8-5"/><circle cx="20" cy="20" r="1.8" fill="#0d9488" stroke="none"/></g>
       <text x="45" y="28" fill="#0f172a" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="25" font-weight="800" letter-spacing="-.6">Coa<tspan fill="#0d9488">Score</tspan></text>
     </svg>
-    <p class="tagline">See what the COA proves. Spot what it leaves out.</p>
+    <h1 class="tagline">COA Interpreter: see what the COA proves, spot what it leaves out</h1>
     <p class="muted">Your document stays in this browser. CoaScore does not upload it.</p>
     <span class="rou">For research use only · not medical advice</span>
   </header>
@@ -128,17 +128,17 @@
 
     <div id="fields" class="hide" style="margin-top:18px">
       <div class="grid" id="fieldGrid">
-        <div><label>Compound</label><select id="f_compound"></select></div>
-        <div><label>HPLC purity (%)</label><input id="f_purity" type="number" step="0.01" placeholder="e.g. 99.2" /></div>
-        <div><label>Mass-spec found mass (Da)</label><input id="f_mass" type="number" step="0.01" placeholder="e.g. 4113.6" /></div>
-        <div><label>Testing lab</label><input id="f_lab" placeholder="e.g. Janoshik" /></div>
-        <div><label>Report / reference #</label><input id="f_report" placeholder="e.g. 240711-12" /></div>
-        <div><label>Test date</label><input id="f_date" placeholder="e.g. 2026-07-11" /></div>
-        <div><label>Lot / batch # (on COA)</label><input id="f_lotcoa" placeholder="e.g. RT-2406" /></div>
-        <div><label>Lot on your vial</label><input id="f_lotvial" placeholder="match check (optional)" /></div>
-        <div><label>Net peptide content (%)</label><input id="f_netpep" type="number" step="0.1" placeholder="e.g. 88 (optional)" /></div>
-        <div><label>Salt form</label><select id="f_salt"><option value="">unknown</option><option>acetate</option><option>TFA</option><option>free base / HCl</option></select></div>
-        <div><label>Label strength (mg)</label><input id="f_labelmg" type="number" step="0.1" placeholder="e.g. 10 (optional)" /></div>
+        <div><label for="f_compound">Compound</label><select id="f_compound"></select></div>
+        <div><label for="f_purity">HPLC purity (%)</label><input id="f_purity" type="number" step="0.01" placeholder="e.g. 99.2" /></div>
+        <div><label for="f_mass">Mass-spec found mass (Da)</label><input id="f_mass" type="number" step="0.01" placeholder="e.g. 4113.6" /></div>
+        <div><label for="f_lab">Testing lab</label><input id="f_lab" placeholder="e.g. Janoshik" /></div>
+        <div><label for="f_report">Report / reference #</label><input id="f_report" placeholder="e.g. 240711-12" /></div>
+        <div><label for="f_date">Test date</label><input id="f_date" placeholder="e.g. 2026-07-11" /></div>
+        <div><label for="f_lotcoa">Lot / batch # (on COA)</label><input id="f_lotcoa" placeholder="e.g. RT-2406" /></div>
+        <div><label for="f_lotvial">Lot on your vial</label><input id="f_lotvial" placeholder="match check (optional)" /></div>
+        <div><label for="f_netpep">Net peptide content (%)</label><input id="f_netpep" type="number" step="0.1" placeholder="e.g. 88 (optional)" /></div>
+        <div><label for="f_salt">Salt form</label><select id="f_salt"><option value="">unknown</option><option>acetate</option><option>TFA</option><option>free base / HCl</option></select></div>
+        <div><label for="f_labelmg">Label strength (mg)</label><input id="f_labelmg" type="number" step="0.1" placeholder="e.g. 10 (optional)" /></div>
         <div style="display:flex;align-items:end"><label style="display:flex;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="f_chroma" style="width:auto" /> chromatogram shown?</label></div>
       </div>
       <div class="row"><button class="btn" id="analyze" type="button">Score what’s documented →</button></div>
