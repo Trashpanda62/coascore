@@ -120,6 +120,18 @@
       </div>
       <p class="note">The model assumes a fixed interval, one compartment, and first-order elimination. Real pharmacokinetic behavior may differ.</p>
     </section>
+  <section class="card" aria-labelledby="math-title">
+      <h2 id="math-title">How the arithmetic works</h2>
+      <p>The calculator applies four relationships. You can check any result by hand.</p>
+      <ul>
+        <li><strong>Concentration</strong> (mg/mL) = mg in the vial &divide; mL of liquid added. Multiply by 1,000 for mcg/mL.</li>
+        <li><strong>Volume for an amount</strong> (mL) = amount in mcg &divide; concentration in mcg/mL.</li>
+        <li><strong>Syringe marks</strong>: a U-100 insulin syringe holds 100 units per mL and a U-40 holds 40 units per mL, so units = mL &times; 100 (or &times; 40).</li>
+        <li><strong>Portions per vial</strong> = total mcg in the vial &divide; amount per portion.</li>
+      </ul>
+      <p>Worked example with the default numbers: 10 mg in 2 mL is 5 mg/mL, or 5,000 mcg/mL. An amount of 250 mcg is 250 &divide; 5,000 = 0.05 mL, which is 5 units on a U-100 syringe. The vial holds 10,000 mcg, so 10,000 &divide; 250 = 40 portions.</p>
+      <p>Two cautions. First, the labeled vial amount is not always the amount of peptide in the vial; see <a href="/net-peptide-content.html">net peptide content</a> for why. Second, this is arithmetic for laboratory research solutions, not medical advice or a dosing recommendation.</p>
+    </section>
   </main>
 
   <footer><div class="wrap">
