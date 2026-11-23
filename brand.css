@@ -100,3 +100,7 @@ p { color: var(--ink-soft); }
 @media (max-width: 800px) { .nav-wrap { align-items: flex-start; flex-direction: column; } .site-nav { width: 100%; margin-left: -.35rem; justify-content: flex-start; } .grid, .grid.two, .comparison { grid-template-columns: 1fr; } main { padding-top: 3rem; } }
 @media (max-width: 420px) { .nav-wrap { padding-inline: .75rem; } .site-nav { display: grid; grid-template-columns: 1fr 1fr; margin: 0; gap: .25rem; } .site-nav .tool-button { grid-column: 1/-1; margin-left: 0; justify-content: center; } main { padding: 2.5rem .875rem 4rem; } h1 { font-size: 2.25rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { transition: none !important; animation: none !important; } }
+
+/* touch targets: footer links and the wordmark link get a taller hit area without moving the layout much */
+.footer-links a { display: inline-block; padding: 10px 0; }
+a.brand-wordmark { display: inline-flex; align-items: center; min-height: 44px; }
