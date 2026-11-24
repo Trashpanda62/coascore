@@ -121,7 +121,7 @@ body = ('<main id="main"><article class="prose"><nav class="crumbs" aria-label="
         + '<h2 id="refs">Sources (checked 2026-11-23)</h2><ul>'
         '<li><a href="https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin" rel="noopener" target="_blank">Wikipedia: Human chorionic gonadotropin</a> (subunits, glycosylation, forms, IU).</li>'
         '<li><a href="https://en.wikipedia.org/wiki/IGF-1_LR3" rel="noopener" target="_blank">Wikipedia: IGF-1 LR3</a> (83 residues, Arg3 substitution, molar mass 9117.60). The article is not primary literature.</li>'
-        '<li><a href="https://www.rndsystems.com/products/recombinant-human-follistatin-aa-30-344-protein_4889-fn" rel="noopener" target="_blank">R&amp;D Systems: recombinant human follistatin</a>, the reference source in CoaScore&rsquo;s data (not re-read this pass).</li>'
+        '<li><a href="https://en.wikipedia.org/wiki/Follistatin" rel="noopener" target="_blank">Wikipedia: Follistatin</a> (isoforms FS-288, FS-300 and FS-315 reported). The core figure of about 37.8 kDa in CoaScore&rsquo;s reference data came from an R&amp;D Systems product listing that we could not reopen on 2026-11-23, so treat it as approximate.</li>'
         '<li>Thymalin and vendor-quoted IGF-1 LR3 masses: CoaScore reference data (<a href="/peptides/thymalin.html">thymalin</a>, <a href="/peptides/igf-1-lr3.html">IGF-1 LR3</a>). Public thymalin sources are mostly vendor pages, so we state no mass.</li></ul>'
         + g.RELATED.replace('<li><a href="/no-single-molecular-weight.html">Why some peptides have no single molecular weight</a></li>', '') + g.AD + '</article></main>')
 

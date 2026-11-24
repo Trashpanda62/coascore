@@ -476,7 +476,7 @@
     "monoisotopicMW": null,
     "saltNote": "Biologic extract; not a single defined salt-form.",
     "typicalHplcSpec": "Not a single-component HPLC spec (mixture)",
-    "sourceUrl": "https://en.wikipedia.org/wiki/Thymalin",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Oglufanide",
     "notes": "MW intentionally null. Thymalin is a POLYPEPTIDE FRACTION extracted from calf thymus — a mixture of peptides, not a single molecule, so no single MW applies. Note: some vendors sell a synthetic dipeptide (Glu-Trp / 'thymogen') under confusingly similar names — verify."
   },
   {
@@ -684,7 +684,7 @@
     "monoisotopicMW": null,
     "saltNote": "Recombinant glycoprotein; not a small-molecule salt form.",
     "typicalHplcSpec": "≥ 95% (SDS-PAGE)",
-    "sourceUrl": "https://www.rndsystems.com/products/recombinant-human-follistatin-aa-30-344-protein_4889-fn",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Follistatin",
     "notes": "MW intentionally null. 344-residue glycoprotein isoform of follistatin (~37.8 kDa core, higher glycosylated). A full protein, not a defined-MW peptide — identity by SDS-PAGE/immunoassay. Also sold as FST-315 (different isoform)."
   },
   {
