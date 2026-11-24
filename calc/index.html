@@ -120,6 +120,7 @@
         <div class="result"><span>Accumulation factor R</span><strong id="factor">—</strong></div>
         <div class="result"><span>~5 half-lives</span><strong id="steady">—</strong></div>
       </div>
+      <p id="pk-source" class="note" hidden></p>
       <p class="note">The model assumes a fixed interval, one compartment, and first-order elimination. Real pharmacokinetic behavior may differ.</p>
     </section>
   <section class="card" aria-labelledby="math-title">
@@ -150,6 +151,11 @@
       {slug:"liraglutide",name:"Liraglutide",halfLifeHours:13},
       {slug:"oxytocin",name:"Oxytocin",halfLifeHours:null}
     ];
+    const SOURCES = {
+      semaglutide:{label:"Ozempic (semaglutide) FDA prescribing information, section 12.3: elimination half-life of approximately 1 week",url:"https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=adec4fd2-6858-4c99-91d4-531f5f2a2d79"},
+      tirzepatide:{label:"Mounjaro (tirzepatide) FDA prescribing information, section 12.3: elimination half-life of approximately 5 days",url:"https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=d2d7da5d-ad07-4228-955f-cf7e355c8cc0"},
+      liraglutide:{label:"Victoza (liraglutide) FDA prescribing information, section 12.3: elimination half-life of approximately 13 hours",url:"https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5a9ef4ea-c76a-4d34-a604-27c5b505f5a4"}
+    };
     const $ = id => document.getElementById(id);
     const finitePositive = value => Number.isFinite(value) && value > 0;
     const numberFrom = id => Number($(id).value);
@@ -206,11 +212,14 @@
     }
     function updatePk() {
       const index = $("compound").value, intervalInput = $("interval"), status = $("pk-status");
-      $("pk-error").textContent = ""; $("pk-results").hidden = true;
-      if (index === "") { intervalInput.disabled = true; status.textContent = "Choose a compound to see whether the database has a half-life value."; return; }
+      $("pk-error").textContent = ""; $("pk-results").hidden = true; $("pk-source").hidden = true;
+      if (index === "") { intervalInput.disabled = true; status.textContent = "Choose a compound to see whether a sourced half-life value is listed."; return; }
       const item = compounds[Number(index)], halfLife = item ? halfLifeOf(item) : null;
-      if (!halfLife) { intervalInput.disabled = true; status.textContent = "The database has no half-life value for this compound."; return; }
-      intervalInput.disabled = false; status.textContent = `Using the database half-life value for ${item.name}.`;
+      if (!halfLife) { intervalInput.disabled = true; status.textContent = "No sourced half-life value is listed for this compound."; return; }
+      intervalInput.disabled = false; status.textContent = `Using the published half-life value for ${item.name}.`;
+      const src = SOURCES[item.slug];
+      if (!src) { intervalInput.disabled = true; status.textContent = "No sourced half-life value is listed for this compound."; return; }
+      const srcEl = $("pk-source"); srcEl.textContent = "Source: "; const a = document.createElement("a"); a.href = src.url; a.rel = "noopener"; a.target = "_blank"; a.textContent = src.label; srcEl.appendChild(a); srcEl.hidden = false;
       const interval = numberFrom("interval");
       $("interval").setAttribute("aria-describedby", "pk-error");
       $("interval").setAttribute("aria-invalid", String(!finitePositive(interval)));
