@@ -418,10 +418,10 @@
   {
     "slug": "aod-9604",
     "name": "AOD-9604",
-    "aliases": ["Anti-Obesity Drug 9604", "Tyr-hGH frag 176-191"],
+    "aliases": ["Anti-Obesity Drug 9604", "Tyr-hGH frag 177-191"],
     "class": "GH fragment (lipolytic)",
     "isPeptide": true,
-    "sequence": null,
+    "sequence": "YLRIVQCRSVEGSCGF",
     "modified": true,
     "molecularFormula": "C78H123N23O23S2",
     "avgMW": 1815.08,
@@ -429,23 +429,23 @@
     "saltNote": "Commonly acetate salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 98% HPLC",
     "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/AOD-9604",
-    "notes": "hGH(177-191) with an N-terminal Tyr added; intramolecular disulfide (Cys-Cys). Modified — use published MW."
+    "notes": "16 residues: hGH residues 177-191 (LRIVQCRSVEGSCGF, the C-terminal end of the UniProt P01241 chain) with a Tyr added at the N-terminus, and a Cys-Cys disulfide. Its average mass, 1815.08, is about 16 Da above the native 176-191 fragment (1799.07). On a COA it should show [M+2H]2+ near 908.94, not 900.94. Modified — use published MW."
   },
   {
     "slug": "fragment-176-191",
     "name": "HGH Fragment 176-191",
-    "aliases": ["HGH Frag 176-191", "Frag 176-191", "AOD-9604 (marketed as)"],
+    "aliases": ["HGH Frag 176-191", "Frag 176-191"],
     "class": "GH fragment (lipolytic)",
     "isPeptide": true,
-    "sequence": null,
+    "sequence": "FLRIVQCRSVEGSCGF",
     "modified": true,
-    "molecularFormula": "C78H123N23O23S2",
-    "avgMW": 1815.08,
-    "monoisotopicMW": 1813.8604,
+    "molecularFormula": "C78H123N23O22S2",
+    "avgMW": 1799.07,
+    "monoisotopicMW": 1797.8654,
     "saltNote": "Commonly acetate salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 98% HPLC",
-    "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/AOD-9604",
-    "notes": "CAUTION/overlap: research-market 'HGH Fragment 176-191' is essentially AOD-9604 (Tyr-modified, disulfide), MW ~1815. The native hGH 176-191 fragment (Phe-176, no added Tyr) is one oxygen lighter: C78H123N23O22S2, ~1799.1 (PubChem CID 16131230). A figure near 1817 matches the Tyr sequence without the disulfide bond (two more hydrogens). Verify vendor sequence against the COA."
+    "sourceUrl": "https://www.uniprot.org/uniprotkb/P01241/entry",
+    "notes": "The native sequence: the last 16 residues of human growth hormone (UniProt P01241), Phe-176 to Phe-191, with a Cys182-Cys189 disulfide. Average mass 1799.07 from our calculation, matching PubChem CID 16131230 (~1799.1). It has no added Tyr, so it is about 16 Da lighter than AOD-9604 (1815.08): a COA should show [M+2H]2+ near 900.94, not 908.94. Caution: some vendors list a 176-191 product but supply the AOD-9604 sequence, so check the mass on the report. A figure near 1817 matches the Tyr sequence without the disulfide bond (two more hydrogens). Verify the vendor sequence against the COA."
   },
   {
     "slug": "thymosin-alpha-1",
@@ -661,15 +661,15 @@
     "aliases": ["Long [Arg3]-IGF-1", "LR3-IGF-I", "IGF-1 Long Arginine 3"],
     "class": "IGF-1 analog (recombinant protein)",
     "isPeptide": true,
-    "sequence": null,
+    "sequence": "MFPAMPLSSLFVNGPRTLCGAELVDALQFVCGDRGFYFNKPTGYGSSSRRAPQTGIVDECCFRSCDLRRLEMYCAPLKPAKSA",
     "modified": true,
     "molecularFormula": null,
     "avgMW": null,
     "monoisotopicMW": null,
     "saltNote": "Recombinant protein; not a small-molecule salt form.",
     "typicalHplcSpec": "≥ 95% (SDS-PAGE / RP-HPLC)",
-    "sourceUrl": "https://en.wikipedia.org/wiki/IGF-1_LR3",
-    "notes": "MW intentionally null due to SOURCE CONFLICT: an 83-residue recombinant IGF-1 analog (13-aa N-terminal extension + Glu3→Arg). Vendors cite ~9111, ~9117.8, and ~9200 Da inconsistently. A 3-disulfide protein — identity is by mass-spec/SDS-PAGE, not a single agreed small-molecule MW. Approx ~9.1 kDa."
+    "sourceUrl": "https://www.uniprot.org/uniprotkb/P05019/entry",
+    "notes": "MW intentionally null: no published source we could reach gives a verified mass. An 83-residue recombinant IGF-1 analog (13-aa N-terminal extension MFPAMPLSSLFVN + Glu3→Arg; sequence as printed on Wikipedia, original work Tomas et al., Biochem J 1992, PMID 1371669). Native IGF-1 is 70 residues (UniProt P05019, chain 49-118, disulfides 54-96, 66-109, 95-100). Our own calculation from that sequence, with three disulfide bonds and no other modification, gives about 9,111 Da (average); Wikipedia prints 9,117.60, and vendor figures are not independently confirmed, so treat every number as unconfirmed. Identity is by intact-protein mass-spec or SDS-PAGE, not a single agreed MW."
   },
   {
     "slug": "follistatin-344",
