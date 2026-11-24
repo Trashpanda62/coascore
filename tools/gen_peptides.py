@@ -137,6 +137,7 @@ def page(x):
           "headline": title, "description": desc, "author": {"@type": "Organization", "name": "CoaScore"},
           "publisher": {"@type": "Organization", "name": "CoaScore", "logo": {"@type": "ImageObject", "url": "https://coascore.com/og.png"}},
           "mainEntityOfPage": url}
+    OG = f'https://coascore.com/og/peptides/{slug}.png'
     bc = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://coascore.com/"},
         {"@type": "ListItem", "position": 2, "name": "Peptide reference", "item": "https://coascore.com/peptides/"},
@@ -146,10 +147,11 @@ def page(x):
             f'<meta name="description" content="{H(desc)}"><link rel="canonical" href="{url}"><meta property="og:type" content="article">'
             f'<meta property="og:site_name" content="CoaScore"><meta property="og:title" content="{H(title)}">'
             f'<meta property="og:description" content="{H(desc)}"><meta property="og:url" content="{url}">'
-            f'<meta property="og:image" content="https://coascore.com/og.png"><meta property="og:image:width" content="1200">'
-            f'<meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
+            f'<meta property="og:image" content="{OG}"><meta property="og:image:width" content="1200">'
+            f'<meta property="og:image:height" content="630"><meta property="og:image:alt" content="{H(sn)} COA reference card: molecular weight and what to check">'
+            f'<meta name="twitter:card" content="summary_large_image">'
             f'<meta name="twitter:title" content="{H(title)}"><meta name="twitter:description" content="{H(desc)}">'
-            f'<meta name="twitter:image" content="https://coascore.com/og.png">'
+            f'<meta name="twitter:image" content="{OG}">'
             f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
             f'<script type="application/ld+json">{json.dumps(bc, ensure_ascii=False, separators=(",", ":"))}</script>'
             f'{CLARITY}</head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="nav-wrap">'
