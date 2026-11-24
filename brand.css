@@ -104,3 +104,17 @@ p { color: var(--ink-soft); }
 /* touch targets: footer links and the wordmark link get a taller hit area without moving the layout much */
 .footer-links a { display: inline-block; padding: 10px 0; }
 a.brand-wordmark { display: inline-flex; align-items: center; min-height: 44px; }
+
+.table-wrap { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.table-wrap:focus-visible { outline: 3px solid rgba(13,148,136,.4); outline-offset: 2px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.data-table th, .data-table td { padding: .6rem .8rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+.data-table th { color: var(--ink); background: var(--surface-2); font-weight: 750; white-space: nowrap; }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table td a { display: inline-block; min-height: 24px; font-weight: 650; }
+.mm-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
+.mm label, .flt { display: block; color: var(--ink-soft); font-size: .9rem; font-weight: 700; }
+.mm input, .mm select, .flt input { display: block; width: 100%; min-height: 44px; margin-top: .35rem; padding: .6rem .75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: inherit; }
+.mm input:focus, .mm select:focus, .flt input:focus { outline: 3px solid rgba(13,148,136,.25); border-color: var(--accent); }
+#mo { margin-top: 1rem; padding: .25rem 1rem; border-left: 4px solid var(--accent); background: var(--accent-wash); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+#mo li { margin: .5rem 0; color: var(--ink-soft); }
