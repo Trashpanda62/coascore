@@ -108,6 +108,7 @@ FOOT = ('<footer class="site-footer"><div class="footer-wrap"><span class="brand
 RELATED = ('<aside class="related prose" aria-labelledby="rel"><h2 id="rel">Related guides</h2><ul>'
            '<li><a href="/peptides/">All compounds in the peptide reference</a></li>'
            '<li><a href="/coa-tests-explained.html">Peptide COA tests explained</a></li>'
+           '<li><a href="/no-single-molecular-weight.html">Why some peptides have no single molecular weight</a></li>'
            '<li><a href="/how-to-read-a-coa.html">How to read a peptide COA</a></li>'
            '<li><a href="/read-hplc-and-mass-spec.html">Read an HPLC chromatogram and mass spectrum</a></li>'
            '<li><a href="/verify-a-coa.html">How to verify a COA</a></li>'
@@ -186,7 +187,8 @@ def page(x):
                  + '<p>The method is explained on the <a href="/read-hplc-and-mass-spec.html">chromatogram and mass spectrum guide</a>, with a worked example.</p>')
     else:
         body += ("<h2>Why there is no single molecular weight</h2><p>CoaScore's reference data deliberately lists no single mass for this one. "
-                 f'{H(notes)} A COA that states one exact molecular weight for it deserves a question about where the number came from.</p>')
+                 f'{H(notes)} A COA that states one exact molecular weight for it deserves a question about where the number came from.</p>'
+                 '<p>Read the <a href="/no-single-molecular-weight.html">guide to peptides with no single molecular weight</a> for what the report should show instead.</p>')
     cav = ''
     if has_mass:
         cav += f'<li><strong>Compound note.</strong> {H(tidy(x["notes"]))}</li>'
