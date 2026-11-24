@@ -113,7 +113,7 @@ RELATED = ('<aside class="related prose" aria-labelledby="rel"><h2 id="rel">Rela
            '<li><a href="/read-hplc-and-mass-spec.html">Read an HPLC chromatogram and mass spectrum</a></li>'
            '<li><a href="/verify-a-coa.html">How to verify a COA</a></li>'
            '<li><a href="/net-peptide-content.html">Net peptide content vs purity</a></li>'
-           '<li><a href="/coa-red-flags.html">COA red flags</a></li><li><a href="/faq.html">COA FAQ</a></li>'
+           '<li><a href="/coa-red-flags.html">COA red flags</a></li><li><a href="/sample-coas.html">Sample peptide COAs, annotated</a></li><li><a href="/faq.html">COA FAQ</a></li>'
            '<li><a href="/tool/">COA Interpreter</a></li><li><a href="/calc/">Reconstitution calculator</a></li></ul></aside>')
 AD = '<aside class="ad-slot" data-slot="in-article" aria-label="Advertisement" hidden></aside>'
 

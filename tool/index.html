@@ -132,7 +132,7 @@
       <div class="grid" id="fieldGrid">
         <div><label for="f_compound">Compound</label><select id="f_compound"></select></div>
         <div><label for="f_purity">HPLC purity (%)</label><input id="f_purity" type="number" step="0.01" placeholder="e.g. 99.2" /></div>
-        <div><label for="f_mass">Mass-spec found mass (Da)</label><input id="f_mass" type="number" step="0.01" placeholder="e.g. 4113.6" /></div>
+        <div><label for="f_mass">Mass-spec found mass (Da)</label><input id="f_mass" type="number" step="0.01" placeholder="e.g. 4113.6" aria-describedby="massHint" /><p class="muted" id="massHint" style="font-size:.82rem;margin:4px 0 0">Neutral mass in Da. If the report only gives an m/z peak, convert it with the <a href="/peptides/">mass matcher</a> first.</p></div>
         <div><label for="f_lab">Testing lab</label><input id="f_lab" placeholder="e.g. Janoshik" /></div>
         <div><label for="f_report">Report / reference #</label><input id="f_report" placeholder="e.g. 240711-12" /></div>
         <div><label for="f_date">Test date</label><input id="f_date" placeholder="e.g. 2026-07-11" /></div>
@@ -157,7 +157,7 @@
     <p class="muted" id="scoreKey" style="font-size:.9rem;margin:6px 0 0"><b>How to read this score.</b> It measures how much of the expected paperwork is present, out of 5. It does not say whether the product is good. Each check is weighted: <b>PASS</b> counts in full, <b>CHECK</b> counts half, <b>ASK</b> and <b>FLAG</b> count zero.</p>
     <div id="checks" style="margin-top:8px"></div>
     <div id="asksWrap" class="hide" style="margin-top:16px">
-      <b>Ask the vendor for these missing pieces</b>
+      <b>Questions to put to the vendor or lab</b>
       <ul class="asks" id="asks"></ul>
       <p class="muted" style="font-size:.9rem;margin-top:10px">Take these to the vendor or lab. Printable list: <a href="/coa-checklist.html">COA checklist</a>. How to confirm a report with the lab: <a href="/verify-a-coa.html">verify a COA</a>. What each warning sign means: <a href="/coa-red-flags.html">COA red flags</a>.</p>
     </div>
@@ -1130,7 +1130,7 @@ function analyze(){
     const diff=Math.abs(mass-target);
     if(diff<=1.2) add(2,"good","Mass supports identity",`Reported mass ${mass} Da matches ${c.name}'s expected ${target.toFixed(1)} Da (${exp.source}).`);
     else if(diff<=3) add(2,"warn","Mass is close but not exact",`Reported ${mass} Da vs expected ${target.toFixed(1)} Da (off by ${diff.toFixed(1)}). Could be salt/rounding — worth confirming the exact form.`);
-    else add(2,"ask","Mass doesn't match",`Reported ${mass} Da vs expected ~${target.toFixed(0)} Da for ${c.name}. Ask the vendor which form/modification this is before relying on it.`);
+    else add(2,"ask","Mass doesn't match",`Reported ${mass} Da vs expected ~${target.toFixed(0)} Da for ${c.name}. Ask the vendor which form/modification this is before relying on it. If you typed an m/z peak from the spectrum, convert it to a neutral mass first (mass matcher in the peptide reference).`);
   } else if(hasMass&&(mass==null||mass<0)){ add(2,"ask","Mass value is invalid","Mass must be a finite, non-negative value in Da.");
   } else if(c&&!exp&&mass!=null&&mass>=0){ add(2,"warn","Biologic identity needs a different test",`${c.name} does not have a single average molecular weight that can confirm identity here. Verify it using the appropriate SDS-PAGE, immunoassay, or IU-based documentation instead.`);
   } else if(c&&mass==null){ add(2,"ask","No mass-spec value entered","Identity is best confirmed by mass spectrometry. If the COA has no MS result, purity alone doesn't prove what the molecule is.");
@@ -1183,8 +1183,23 @@ function renderResults(score, checks){
         : ["This isn't enough paperwork","Ask for a complete, lab-issued COA tied to the correct lot."];
   $("verdict").textContent=v[0]; $("verdictSub").textContent=v[1];
   $("checks").innerHTML=checks.map(c=>`<div class="check"><span class="tag t-${c.tag}">${({good:"PASS",warn:"CHECK",ask:"ASK",bad:"FLAG"})[c.tag]}</span><div><b>${escapeHtml(c.title)}</b><p>${escapeHtml(c.text)}</p></div></div>`).join('');
-  const asks=checks.filter(c=>c.tag!=="good");
-  if(asks.length){ $("asksWrap").classList.remove("hide"); $("asks").innerHTML=asks.map(c=>`<li>${escapeHtml(c.title)}</li>`).join(''); }
+  const askFor=t=>/invalid|out of range/i.test(t)?null
+    :/^Mass is close|^Mass doesn/i.test(t)?"Which form or modification does the reported mass refer to, and is it a neutral mass or an m/z peak?"
+    :/^No mass-spec|^Compound/i.test(t)?"Can I see the mass-spec result for this lot, with the observed and the expected mass?"
+    :/^Biologic/i.test(t)?"Which identity and potency tests were run, and can I see the data?"
+    :/^No purity/i.test(t)?"What is the HPLC purity for this lot, and can I see the chromatogram?"
+    :/^HPLC purity/i.test(t)?"Can I see the full chromatogram and peak table behind this purity figure?"
+    :/^No chromatogram/i.test(t)?"Can I see the full HPLC chromatogram and peak table?"
+    :/^Lab named/i.test(t)?"Is this an independent lab, and how can I confirm the report with it directly?"
+    :/^No testing lab/i.test(t)?"Which lab issued this report?"
+    :/^No report/i.test(t)?"What is the lab's report number, so I can confirm it with the lab?"
+    :/^No date/i.test(t)?"On what date was this lot tested?"
+    :/^Lot mismatch/i.test(t)?"Can I have the COA for the lot printed on my vial?"
+    :/^Net peptide content not stated/i.test(t)?"What is the net peptide content, and how was it measured?"
+    :/^Net peptide content/i.test(t)?"How was this net peptide content measured, and what is the salt form?"
+    :t;
+  const asks=checks.filter(c=>c.tag!=="good").map(c=>askFor(c.title)).filter(Boolean);
+  if(asks.length){ $("asksWrap").classList.remove("hide"); $("asks").innerHTML=asks.map(q=>`<li>${escapeHtml(q)}</li>`).join(''); }
   else $("asksWrap").classList.add("hide");
   $("results").scrollIntoView({behavior:"smooth"});
 }
