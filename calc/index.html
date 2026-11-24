@@ -180,7 +180,7 @@
       error.textContent = ""; $("results").hidden = false; $("instruction").hidden = false;
       $("concentration").textContent = `${fmt(concentration)} mg/mL (${fmt(mcgPerMl)} mcg/mL)`;
       $("dose-volume").textContent = `${fmt(doseMl)} mL`;
-      $("doses-vial").textContent = `${fmt(doses)} doses`;
+      $("doses-vial").textContent = `${fmt(doses)} portions`;
       const syringe = $("syringe").value;
       if (syringe === "ml") {
         $("units-label").textContent = "Syringe measurement"; $("units").textContent = "Plain mL";

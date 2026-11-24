@@ -75,7 +75,7 @@ s2 = sample(
     ['Lot number, sequence (YEQDPWGVKWWY), salt form (acetate) and storage on page 1, with a signature and a stamp.',
      'Identity: theoretical mass 1656.79 and observed 1656.80, plus a spectrum where the main peak is labelled [M-2H]2- at m/z 827.40. '
      f'Our check: (1656.79 - 2 x 1.00728) / 2 = {nov_mz:.2f}, so the labelled peak fits the stated mass.',
-     'Purity: a full chromatogram at 214 nm and a peak table with five peaks. The main peak is 97.350% of the area. The areas add up to the printed total (4,351,497).',
+     'Purity: a full chromatogram at 214 nm and a peak table with five peaks. The main peak is 97.350% of the area. The areas add up to the printed total (4,351,497) to within one count.',
      'Method: column (Kromasil C18, 4.6 x 250 mm), mobile phases, gradient, flow rate, wavelength, injection volume and dissolving solvent. This is the most complete method block of the three samples.'],
     ['Purity is area-%, so it says how much of the detector signal is the main peak. It does not say how much of the powder is peptide. See <a href="/read-hplc-and-mass-spec.html">reading HPLC and mass spec</a>.',
      'The test table lists endotoxin, TFA solubility, moisture content and acetic acid content, all as "N/A". For a product described as an acetate salt, '
@@ -99,7 +99,7 @@ s3 = sample(
      'The methods page explains that the peptide is compared against a known standard. This is the only sample here that measures amount.',
      'A methods summary naming USP/NF chapters and describing how purity (area ratio) and amount are calculated.'],
     ['One purity line (more than 99.9%) for a blend of three, and it is not tied to a single analyte. Ask for purity per component.',
-     'The methods summary describes endotoxin (USP/NF 85) and metals (USP/NF 233) tests, but no endotoxin or metals result appears on the report pages. Ask whether those were run on this lot.',
+     'The methods summary describes endotoxin (USP/NF 86) and metals (USP/NF 233) tests, but no endotoxin or metals result appears on the report pages. Ask whether those were run on this lot.',
      'Observed and expected masses are not printed per analyte, only "ID Confirmed". A spectrum is attached, but you cannot check it against a stated target.',
      'The label amounts per analyte are not printed on the report. The percentages imply 10 mg, 50 mg and 10 mg, which add up to the 70 mg label claim.',
      'The report is the lab\'s result for one vial, so it describes that sample, not every batch. Check the batch code against your own vial.'],

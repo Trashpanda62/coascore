@@ -56,7 +56,7 @@
     "sequence": null,
     "modified": true,
     "molecularFormula": "C194H312N54O59S2",
-    "avgMW": 4408.90,
+    "avgMW": 4409.01,
     "monoisotopicMW": 4406.2515,
     "saltNote": "Free-peptide MW; an acetate-salt CID (164618153) also exists.",
     "typicalHplcSpec": "≥ 98% HPLC",
@@ -92,7 +92,7 @@
     "monoisotopicMW": 1418.7042,
     "saltNote": "Commonly supplied as acetate salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 98% HPLC",
-    "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/9941603",
+    "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/9941957",
     "notes": "Synthetic pentadecapeptide (partial sequence of gastric protein BPC). Unmodified linear peptide — sequence-sum matches published MW. 'BPC-157 arginate' salt variants exist at different MW."
   },
   {
@@ -108,7 +108,7 @@
     "monoisotopicMW": 4960.4863,
     "saltNote": "Commonly acetate salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 95% HPLC",
-    "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/16219862",
+    "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/16132341",
     "notes": "N-terminally acetylated 43-aa protein (full Tβ4). CAUTION: 'TB-500' is marketed ambiguously — sometimes the full Tβ4 (MW ~4963, listed here) and sometimes only the active fragment Ac-LKKTETQ (~889 Da). Verify which the COA describes."
   },
   {
@@ -153,7 +153,7 @@
     "modified": true,
     "molecularFormula": "C152H252N44O42",
     "avgMW": 3367.90,
-    "monoisotopicMW": null,
+    "monoisotopicMW": 3365.8936,
     "saltNote": "Commonly acetate/TFA salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 98% HPLC",
     "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/56841945",
@@ -173,7 +173,7 @@
     "saltNote": "Commonly acetate/TFA salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 98% HPLC",
     "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/CJC-1295",
-    "notes": "Mod GRF(1-29) plus a Lys-maleimidopropionyl drug-affinity-complex that binds serum albumin (weekly dosing). SOURCE CONFLICT: many vendors/ChemSpider/Wikipedia mislabel C152H252N44O42 / 3367.9 as 'with DAC' — that formula is actually the NO-DAC version. PubChem's C165H269N47O46 / ~3647 used here as the DAC molecule."
+    "notes": "Mod GRF(1-29) plus a Lys-maleimidopropionyl drug-affinity-complex that binds serum albumin. SOURCE CONFLICT: many vendors/ChemSpider/Wikipedia mislabel C152H252N44O42 / 3367.9 as 'with DAC' — that formula is actually the NO-DAC version. PubChem's C165H269N47O46 / ~3647 used here as the DAC molecule."
   },
   {
     "slug": "sermorelin",
@@ -381,7 +381,7 @@
     "saltNote": "Biologic; not a salt-form small peptide.",
     "typicalHplcSpec": "Potency in IU; not a simple HPLC purity spec",
     "sourceUrl": "https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin",
-    "notes": "MW intentionally null. Heterodimeric glycoprotein (α 92 aa + β 145 aa) that is heavily glycosylated — apparent MW ~36,000–40,000 Da varies with glycoform. No single exact small-molecule MW; identity is by IU potency/immunoassay, not MW."
+    "notes": "MW intentionally null. Heterodimeric glycoprotein (α 92 aa + β 145 aa) that is heavily glycosylated — Wikipedia gives 36.7 kDa (about 14.5 kDa α + 22.2 kDa β); measured mass varies with glycoform. No single exact small-molecule MW; identity is by IU potency/immunoassay, not MW."
   },
   {
     "slug": "nad-plus",
@@ -445,7 +445,7 @@
     "saltNote": "Commonly acetate salt; free-peptide MW listed.",
     "typicalHplcSpec": "≥ 98% HPLC",
     "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/AOD-9604",
-    "notes": "CAUTION/overlap: research-market 'HGH Fragment 176-191' is essentially AOD-9604 (Tyr-modified, disulfide), MW ~1815. A true native Phe-176 fragment (no added Tyr) would differ slightly (~1817 with Phe vs Tyr). Verify vendor sequence against the COA."
+    "notes": "CAUTION/overlap: research-market 'HGH Fragment 176-191' is essentially AOD-9604 (Tyr-modified, disulfide), MW ~1815. The native hGH 176-191 fragment (Phe-176, no added Tyr) is one oxygen lighter: C78H123N23O22S2, ~1799.1 (PubChem CID 16131230). A figure near 1817 matches the Tyr sequence without the disulfide bond (two more hydrogens). Verify vendor sequence against the COA."
   },
   {
     "slug": "thymosin-alpha-1",
@@ -684,8 +684,8 @@
     "monoisotopicMW": null,
     "saltNote": "Recombinant glycoprotein; not a small-molecule salt form.",
     "typicalHplcSpec": "≥ 95% (SDS-PAGE)",
-    "sourceUrl": "https://en.wikipedia.org/wiki/Follistatin",
-    "notes": "MW intentionally null. 344-residue glycoprotein isoform of follistatin (~37.8 kDa core, higher glycosylated). A full protein, not a defined-MW peptide — identity by SDS-PAGE/immunoassay. Also sold as FST-315 (different isoform)."
+    "sourceUrl": "https://www.uniprot.org/uniprotkb/P19883/entry",
+    "notes": "MW intentionally null. Named for the 344-residue precursor of human follistatin (UniProt P19883; calculated 38,007 Da before processing). A 29-residue signal peptide is removed, leaving the 315-residue FS-315 chain (about 34.8 kDa calculated from the sequence); a shorter FS-288 isoform also exists. Two N-glycosylation sites add variable mass. A full protein, not a defined-MW peptide — identity by SDS-PAGE/immunoassay."
   },
   {
     "slug": "tesofensine",
@@ -760,12 +760,12 @@
     "sequence": null,
     "modified": true,
     "molecularFormula": "C192H289N47O61",
-    "avgMW": 4230.65,
+    "avgMW": 4231.63,
     "monoisotopicMW": 4229.0957,
     "saltNote": "Free-peptide MW; carries its own fatty-acid/linker (not a simple salt).",
     "typicalHplcSpec": "≥ 98% HPLC",
     "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/171378821",
-    "notes": "GCGR/GLP-1R dual agonist with Aib and a lipid side chain. Modified — use published MW (~4231)."
+    "notes": "GCGR/GLP-1R dual agonist with Aib and a lipid side chain. Modified — use published MW (~4232)."
   },
   {
     "slug": "mazdutide",
@@ -776,12 +776,12 @@
     "sequence": null,
     "modified": true,
     "molecularFormula": "C207H317N45O65",
-    "avgMW": 4474.06,
+    "avgMW": 4475.99,
     "monoisotopicMW": 4473.2883,
     "saltNote": "Free-peptide MW; oxyntomodulin-based, carries its own fatty diacid (not a simple salt).",
     "typicalHplcSpec": "≥ 98% HPLC",
     "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/compound/167312357",
-    "notes": "Oxyntomodulin analog (GLP-1/glucagon) with C20 diacid lipidation. Modified — use published MW (~4474)."
+    "notes": "Oxyntomodulin analog (GLP-1/glucagon) with C20 diacid lipidation. Modified — use published MW (~4476)."
   },
   {
     "slug": "dihexa",
